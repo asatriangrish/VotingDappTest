@@ -30,3 +30,8 @@
     justify-content: center;
     margin-bottom: 100px;
 }
+.buttonArea {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}

@@ -1,4 +1,4 @@
-import {Badge, Box, Button, Radio, RadioGroup, Stack} from "@chakra-ui/react";
+import {Badge, Box, Button, Radio, RadioGroup, Spinner, Stack} from "@chakra-ui/react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseContractMethod, UseHasVoted, UsePolls} from "../hooks";
@@ -14,6 +14,7 @@ export default function SingleVote() {
     const params = useParams();
     let polls = UsePolls();
     const [value, setValue] = useState('1')
+    const [isLoading, setIsLoading] = useState(false);
     const [poll, setPoll] = useState({
         id: BigNumber.from(0),
         title: "demo title",
@@ -31,8 +32,10 @@ export default function SingleVote() {
         setPoll(polls[id]);
     }, []);
 
-    function handleVote() {
-        send(parseInt(value));
+    async function handleVote() {
+        setIsLoading(true);
+        await send(parseInt(value));
+        setIsLoading(false);
     }
     return (
         <Box className="singleContainer">
@@ -58,7 +61,7 @@ export default function SingleVote() {
             </div>
             <div className="oneRow">
                 Vote Options
-                <RadioGroup onChange={setValue} value={value} style={{paddingLeft: "30px"}}>
+                <RadioGroup onChange={setValue} value={value} style={{paddingLeft: "30px", marginTop: "10px"}}>
                     <Stack>
                         {
                             poll.options.map((item, index) => (
@@ -68,11 +71,21 @@ export default function SingleVote() {
                     </Stack>
                 </RadioGroup>
             </div>
-            {
-                !hasVoted ? <div className="oneRow">
-                    <Button colorScheme='teal' variant='outline' style={{padding: '0 80px'}} onClick={handleVote}>Vote</Button>
-                </div> : <></>
-            }
+            <div className="buttonArea">
+                {
+                    !hasVoted ? <div className="oneRow">
+                        <Button colorScheme='teal' variant='outline' style={{padding: '0 80px'}} onClick={handleVote} disabled={isLoading}>
+                            {isLoading ? <Spinner
+                                thickness='2px'
+                                speed='0.65s'
+                                emptyColor='gray.200'
+                                color='blue.500'
+                                size='md'
+                            /> : <>Vote</>}
+                        </Button>
+                    </div> : <></>
+                }
+            </div>
         </Box>
     )
 };

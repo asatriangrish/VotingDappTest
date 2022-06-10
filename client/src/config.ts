@@ -2,8 +2,8 @@ export const RINKEBY_URL='https://rinkeby.infura.io/v3/4cd67d7b320b4dbf91215ffb3
 export const ROPSTEN_URL='https://rinkeby.infura.io/v3/4cd67d7b320b4dbf91215ffb36924b71'
 export const MAINNET_URL='https://rinkeby.infura.io/v3/4cd67d7b320b4dbf91215ffb36924b71'
 
-export const VOTING_FACTORY_ADDRESS='0x2dB22e6d8aB7D198C40fa9a13271CE56A56C76eE'
-export const VOTING_FACTORY_AVI=[
+export const VOTING_FACTORY_ADDRESS='0x3fc152b874EA8a12cAb4d0F26f22c2C8C6842D62'
+export const VOTING_FACTORY_ABI=[
     {
         inputs: [],
         stateMutability: "nonpayable",
@@ -112,7 +112,7 @@ export const VOTING_FACTORY_AVI=[
         type: "function",
     },
 ]
-export const VOTING_AVI=[
+export const VOTING_ABI=[
     {
         inputs: [
             {
