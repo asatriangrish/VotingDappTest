@@ -6,7 +6,7 @@ import { VotingFactory, VotingPoll } from "../typechain";
 describe("VotingFactory", async function () {
   let votingFactory: VotingFactory;
   let votingPoll: VotingPoll;
-  let polls;
+  let polls: any;
 
   const titles = ["Education", "Economy", "Science", "Sport"];
   let owner1: SignerWithAddress;
@@ -50,12 +50,12 @@ describe("VotingFactory", async function () {
       expect(await votingFactory.pollCount()).to.equal(1);
 
       polls = await votingFactory.getPolls();
+      console.log('polls: ', polls);
 
-      expect(polls.poll_addresses.length).to.equal(1);
-      console.log(polls);
+      expect(polls.length).to.equal(1);
 
       const VotingPoll = await ethers.getContractFactory("VotingPoll");
-      votingPoll = VotingPoll.attach(polls.poll_addresses[0]);
+      votingPoll = VotingPoll.attach(polls[0].addr);
       expect(await votingPoll.title()).to.equal(titles[0]);
       expect(await votingPoll.owner()).to.equal(owner1.address);
 
@@ -65,16 +65,34 @@ describe("VotingFactory", async function () {
 
       polls = await votingFactory.getPolls();
 
-      expect(polls.poll_addresses.length).to.equal(2);
+      expect(polls.length).to.equal(2);
     });
   });
 
   describe("Vote", function () {
-    it("Vote successfully", async function () {
-      await votingPoll.connect(voter1).vote(1);
+    describe("Vote on first poll", async function () {
+      it("Vote successfully", async function () {
+        await votingPoll.connect(voter1).vote(1);
+      });
+
+      it("Vote successfully", async function () {
+        await votingPoll.connect(voter2).vote(1);
+      });
     });
 
-    it("Already voted", async function () {
+    describe("Vote on second poll", async function () {
+      const VotingPoll = await ethers.getContractFactory("VotingPoll");
+      votingPoll = VotingPoll.attach(polls[1].addr);
+      it("Vote successfully", async function () {
+        await votingPoll.connect(voter1).vote(1);
+      });
+
+      it("Vote successfully", async function () {
+        await votingPoll.connect(voter2).vote(1);
+      });
+    });
+
+    describe("Already voted", async function () {
       await expect(votingPoll.connect(voter1).vote(2)).to.revertedWith(
         "This user has already voted."
       );
