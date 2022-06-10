@@ -1,0 +1,18 @@
+.connectBtnContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 20px;
+}
+.listContainer {
+    position: fixed;
+    top: 150px;
+    color: white;
+
+}
+.voteItem {
+    cursor: pointer;
+}
+.singleContainer {
+    color: white;
+}
