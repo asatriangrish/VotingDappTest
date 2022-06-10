@@ -9,7 +9,7 @@ import "@fontsource/inter";
 import "./App.css"
 import VoteList from "./components/VoteList";
 import SingleVote from "./components/SingleVote";
-import VoteIndex from "./components/VoteIndex";
+import NotFound from "./components/NotFound";
 
 function App() {
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -25,7 +25,7 @@ function App() {
                 }>
                     <Route index element={<VoteList/>} />
                     <Route path=":id" element={<SingleVote/>} />
-                    <Route path="*" element={<VoteIndex/>}/>
+                    <Route path="*" element={<NotFound/>}/>
                 </Route>
             </Routes>
         </ChakraProvider>

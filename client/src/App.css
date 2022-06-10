@@ -16,3 +16,17 @@
 .singleContainer {
     color: white;
 }
+.oneRow {
+    margin: 10px;
+}
+.backButton {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    margin: 20px;
+}
+.informArea {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}

@@ -90,6 +90,11 @@ describe("VotingFactory", async function () {
       it("Vote successfully", async function () {
         await votingPoll.connect(voter2).vote(1);
       });
+
+      it("Vote successfully", async function () {
+        const res = await votingPoll.hasVoted(voter2.address);
+        expect(res).to.equal(true);
+      });
     });
 
     describe("Already voted", async function () {

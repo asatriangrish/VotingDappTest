@@ -4,10 +4,7 @@ pragma solidity ^0.8.4;
 import "hardhat/console.sol";
 
 contract VotingPoll {
-    struct Vote {
-        address voter;
-        uint8 option;
-    }
+
 
     string public title;
     address public owner;
